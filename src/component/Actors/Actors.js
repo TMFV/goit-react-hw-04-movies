@@ -36,6 +36,7 @@ class Actors extends Component {
   };
 
   render() {
+    console.log("111", this.props);
     return (
       <div>
         <ul>{this.createActorsList()}</ul>

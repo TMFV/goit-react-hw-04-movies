@@ -15,7 +15,6 @@ class HomeView extends Component {
       );
   }
   render() {
-    console.log("+++", this.location);
     return (
       <>
         <h1> Trending today</h1>

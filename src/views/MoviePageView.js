@@ -48,9 +48,14 @@ class MoviePageView extends Component {
     this.props.history.push(this.props.location.state.from);
   };
   render() {
+    console.log(this.props.match);
     return (
       <>
-        <FilmInfo dataFilm={this.state} fn={this.handleGoBack} />
+        <FilmInfo
+          dataFilm={this.state}
+          fn={this.handleGoBack}
+          {...this.props}
+        />
       </>
     );
   }
