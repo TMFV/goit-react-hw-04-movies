@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Actors from "../Actors/Actors";
 import { Route } from "react-router";
 import { Link } from "react-router-dom";
