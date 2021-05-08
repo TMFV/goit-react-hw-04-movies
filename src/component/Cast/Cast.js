@@ -1,19 +1,21 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 
-class Actors extends Component {
+class Cast extends Component {
   state = {
-    filmId: "",
+    movieId: "",
     filmActors: [],
   };
 
   async componentDidMount() {
     const apiKey = "140aa2a61156d040b45d8a45da490f38";
-    const movieId = this.props.movieId;
+
+    this.setState({ movieId: this.props.match.params.movieId });
 
     const actors = await axios
       .get(
-        `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=en-US`
+        `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}/credits?api_key=${apiKey}`
       )
       .then((response) => response.data.cast);
 
@@ -21,9 +23,9 @@ class Actors extends Component {
       filmActors: [...actors],
     });
   }
+
   createActorsList = () => {
     const actorsArray = this.state.filmActors;
-    console.log(actorsArray);
     return actorsArray.map((actor) => (
       <li key={actor.id} className="film_details__actors">
         <img
@@ -35,8 +37,10 @@ class Actors extends Component {
     ));
   };
 
+  componentWillUnmount() {
+    this.setState({ movieId: "", filmActors: [] });
+  }
   render() {
-    console.log("111", this.props);
     return (
       <div>
         <ul>{this.createActorsList()}</ul>
@@ -45,6 +49,6 @@ class Actors extends Component {
   }
 }
 
-export default Actors;
+export default withRouter(Cast);
 
 //<Trending apiKey="140aa2a61156d040b45d8a45da490f38" />;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 class Trending extends Component {
   state = {
@@ -27,7 +27,7 @@ class Trending extends Component {
             <li key={movie.id}>
               <Link
                 to={{
-                  pathname: `${this.props.parentProps.match.url}movies/${movie.id}`,
+                  pathname: `${this.props.match.url}movies/${movie.id}`,
                   state: { from: "/" },
                 }}
               >
@@ -41,4 +41,4 @@ class Trending extends Component {
   }
 }
 
-export default Trending;
+export default withRouter(Trending);

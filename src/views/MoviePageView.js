@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 import FilmInfo from "../component/FilmInfo/FilmInfo";
 
 class MoviePageView extends Component {
@@ -8,8 +9,6 @@ class MoviePageView extends Component {
     filmGenres: [],
     filmTitle: "",
     filmPoster: "",
-    filmActors: [],
-    filmReviews: [],
   };
 
   async componentDidMount() {
@@ -20,8 +19,8 @@ class MoviePageView extends Component {
       .get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
       .then((response) => response.data)
       .then((data) => data);
-    console.log(data);
-    const actors = await axios
+
+    /* const actors = await axios
       .get(
         `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=en-US`
       )
@@ -31,7 +30,7 @@ class MoviePageView extends Component {
       .get(
         `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${apiKey}&language=en-US&page=1`
       )
-      .then((response) => response.data.results);
+      .then((response) => response.data.results); */
 
     await this.setState({
       filmId: data.id,
@@ -40,15 +39,13 @@ class MoviePageView extends Component {
       filmUserScore: data.vote_average,
       filmOverview: data.overview,
       filmPoster: data.poster_path,
-      filmActors: [...actors],
-      filmReviews: [...reviews],
     });
   }
   handleGoBack = () => {
-    this.props.history.push(this.props.location.state.from);
+    console.log("go back");
+    //this.props.history.push(this.props.location.state.from);
   };
   render() {
-    console.log(this.props.match);
     return (
       <>
         <FilmInfo
@@ -61,6 +58,6 @@ class MoviePageView extends Component {
   }
 }
 
-export default MoviePageView;
+export default withRouter(MoviePageView);
 
 //<Trending apiKey="140aa2a61156d040b45d8a45da490f38" />;

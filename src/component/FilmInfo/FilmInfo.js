@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import Actors from "../Actors/Actors";
+import Cast from "../Cast/Cast";
 import { Route } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import MovieDetailsPage from "../../views/MovieDetailsPage";
 
 class FilmInfo extends Component {
-  state = {
-    showActors: false,
-  };
+  state = {};
   createGenresList = () => {
     const genresArray = this.props.dataFilm.filmGenres;
     return genresArray.map((genre) => (
@@ -16,7 +15,6 @@ class FilmInfo extends Component {
 
   render() {
     const allProps = this.props.dataFilm;
-    console.log(this.props.location.pathname);
     return (
       <div className="film">
         <button onClick={() => this.props.fn()}>← Go back</button>
@@ -42,24 +40,33 @@ class FilmInfo extends Component {
         <div>
           <h2 className="film_details__info_title">Additonal information</h2>
           <ul>
-            <Link to={`${this.props.match.url}/actors`}>
-              <li key="cast">Cast</li>
+            {console.log(this.props.match.url)}
+            <Link to={`${this.props.match.url}/cast`}>
+              <li key="cast1">Cast</li>
             </Link>
-            <Route
-              path={`${this.props.match.path}/actors`}
-              render={(props) => (
-                <Actors {...props} movieId={allProps.filmId} />
-              )}
-            />
-            {/* <Actors movieId={allProps.filmId} {...this.props} /> */}
-            <li key="revs">Reviews</li>
+            <Link to={`${this.props.match.url}/reviews`}>
+              <li key="revs1">Reviews</li>
+            </Link>
           </ul>
+        </div>
+        <div>
+          <Route
+            exact
+            path="/movies/:movieId/cast"
+            render={() => <MovieDetailsPage detail="cast" />}
+          />
+
+          <Route
+            exact
+            path="/movies/:movieId/reviews"
+            render={() => <MovieDetailsPage detail="reviews" />}
+          />
         </div>
       </div>
     );
   }
 }
 
-export default FilmInfo;
+export default withRouter(FilmInfo);
 
 //<Trending apiKey="140aa2a61156d040b45d8a45da490f38" />;

@@ -6,7 +6,8 @@ import HomeView from "./views/HomeView";
 import MoviesView from "./views/MoviesView";
 import NotFoundView from "./views/NotFoundView";
 import MoviePageView from "./views/MoviePageView";
-import Actors from "./component/Actors/Actors";
+import Cast from "./component/Cast/Cast";
+import MovieDetailsPage from "./views/MovieDetailsPage";
 
 const apiKey = "140aa2a61156d040b45d8a45da490f38";
 
@@ -31,12 +32,8 @@ function App() {
       </nav>
       <Switch>
         <Route exact path="/" component={HomeView} />
-        <Route
-          path="/movies/:movieId"
-          render={(props) => <MoviePageView {...props} />}
-        />
-
         <Route exact path="/movies" component={MoviesView} />
+        <Route path="/movies/:movieId" render={() => <MoviePageView />} />
         <Route component={NotFoundView} />
       </Switch>
     </div>
