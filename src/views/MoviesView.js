@@ -5,15 +5,15 @@ import SearchResults from "../component/SearchResults/SearchResults";
 class MoviesView extends Component {
   state = {
     searchWords: "",
+    showResults: false,
   };
 
   searchTextToState = (e) => {
     e.preventDefault();
-    this.setState({ searchWords: e.target[0].value });
+    if (this.state.searchWords !== e.target[0].value) {
+      this.setState({ searchWords: e.target[0].value, showResults: true });
+    }
     e.target.reset();
-  };
-  postToSearch = (word) => {
-    return <SearchResults words={word} />;
   };
 
   render() {
@@ -26,10 +26,7 @@ class MoviesView extends Component {
         <hr />
         <div>
           <h2>{this.state.searchWords}</h2>
-          <ul>
-            {this.state.searchWords !== "" &&
-              this.postToSearch(this.state.searchWords)}
-          </ul>
+          <ul>{<SearchResults words={this.state.searchWords} />}</ul>
         </div>
       </div>
     );
