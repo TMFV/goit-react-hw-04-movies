@@ -13,6 +13,7 @@ class MoviesView extends Component {
     if (this.state.searchWords !== e.target[0].value) {
       this.setState({ searchWords: e.target[0].value, showResults: true });
     }
+    //this.props.match.path = `/movies?query=${this.state.searchWords}`;
     e.target.reset();
   };
 
