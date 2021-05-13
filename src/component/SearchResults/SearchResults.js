@@ -41,7 +41,6 @@ class SearchResult extends Component {
 
   render() {
     console.log(this.state.searchWords);
-
     console.log(this.state.arrayResult);
     return (
       <>
@@ -51,7 +50,7 @@ class SearchResult extends Component {
           <li key={movie.id}>
             <Link
               to={{
-                pathname: `${this.props.match.url}movies/${movie.id}`,
+                pathname: `movies/${movie.id}`,
                 state: { from: "/movies/" },
               }}
             >
