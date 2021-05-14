@@ -1,15 +1,9 @@
-import axios from "axios";
 import { Route, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
-import Trending from "./component/Trending/Trending";
 import HomeView from "./views/HomeView";
 import MoviesView from "./views/MoviesView";
 import NotFoundView from "./views/NotFoundView";
 import MoviePageView from "./views/MoviePageView";
-import Cast from "./component/Cast/Cast";
-import MovieDetailsPage from "./views/MovieDetailsPage";
-
-const apiKey = "140aa2a61156d040b45d8a45da490f38";
 
 function App() {
   return (

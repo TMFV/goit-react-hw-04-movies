@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Cast from "../component/Cast/Cast";
 import Reviews from "../component/Reviews/Reviews";
-import axios from "axios";
 
 class MovieDetailsPage extends Component {
   state = {

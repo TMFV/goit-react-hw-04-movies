@@ -20,18 +20,6 @@ class MoviePageView extends Component {
       .then((response) => response.data)
       .then((data) => data);
 
-    /* const actors = await axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}&language=en-US`
-      )
-      .then((response) => response.data.cast);
-
-    const reviews = await axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${apiKey}&language=en-US&page=1`
-      )
-      .then((response) => response.data.results); */
-
     await this.setState({
       filmId: data.id,
       filmGenres: data.genres,
@@ -41,9 +29,22 @@ class MoviePageView extends Component {
       filmPoster: data.poster_path,
     });
   }
-  handleGoBack = () => {
-    console.log("go back");
-    //this.props.history.push(this.props.location.state.from);
+  handleGoBack = (props) => {
+    const { state } = this.props.location;
+    if (this.props.location.state !== "") {
+      console.log("ZAPROS");
+      this.props.history.push({
+        pathname: "/movies",
+        state: { query: props.location.state.query },
+      });
+    } else if (state) {
+      this.props.history.push(props.location.state.from);
+      console.log("go back");
+    } else {
+      this.props.history.push({
+        pathname: "/",
+      });
+    }
   };
   render() {
     return (
