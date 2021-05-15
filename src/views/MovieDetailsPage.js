@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import Cast from "../component/Cast/Cast";
-import Reviews from "../component/Reviews/Reviews";
+import { lazy, Suspense } from "react";
+
+const Cast = lazy(() => import("../component/Cast/Cast"));
+const Reviews = lazy(() => import("../component/Reviews/Reviews"));
+
+//import Cast from "../component/Cast/Cast";
+//import Reviews from "../component/Reviews/Reviews";
 
 class MovieDetailsPage extends Component {
   state = {
@@ -10,14 +15,21 @@ class MovieDetailsPage extends Component {
 
   toggle() {
     if (this.props.detail === "cast") {
-      return <Cast movieId={this.props.match.params.movieId} />;
+      return (
+        <Suspense fallback={<div>Loading...</div>}>
+          <Cast movieId={this.props.match.params.movieId} {...this.props} />
+        </Suspense>
+      );
     } else if (this.props.detail === "reviews") {
-      return <Reviews movieId={this.props.match.params.movieId} />;
+      return (
+        <Suspense fallback={<div>Loading...</div>}>
+          <Reviews movieId={this.props.match.params.movieId} {...this.props} />
+        </Suspense>
+      );
     }
   }
 
   render() {
-    console.log("MovieDetailsPage---", this.props);
     return this.toggle();
   }
 }

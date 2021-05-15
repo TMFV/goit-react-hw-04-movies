@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-import SearchResults from "../component/SearchResults/SearchResults";
+import { lazy, Suspense } from "react";
+
+const SearchResults = lazy(() =>
+  import("../component/SearchResults/SearchResults")
+);
+//import SearchResults from "../component/SearchResults/SearchResults";
 
 class MoviesView extends Component {
   state = {
@@ -27,7 +32,6 @@ class MoviesView extends Component {
     this.onQueryChange(e.target[0].value);
     this.search(e.target[0].value);
 
-    //this.props.match.path = `/movies?query=${this.state.searchWords}`;
     e.target.reset();
   };
 
@@ -58,28 +62,30 @@ class MoviesView extends Component {
     console.log(this.state.searchWords);
     return (
       <div>
-        <form onSubmit={this.searchTextToState} type="submit">
-          <input type="text" placeholder="words for searching"></input>
-          <button type="submit">Search</button>
-        </form>
-        <hr />
-        <div>
-          <h2>{this.state.searchWords}</h2>
-          <ul>
-            {this.state.display && (
-              <SearchResults
-                results={this.state.searchResults}
-                words={this.state.searchWords}
-              />
-            )}
-            {this.state.searchWords !== "" && (
-              <SearchResults
-                results={this.state.searchResults}
-                words={this.state.searchWords}
-              />
-            )}
-          </ul>
-        </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <form onSubmit={this.searchTextToState} type="submit">
+            <input type="text" placeholder="words for searching"></input>
+            <button type="submit">Search</button>
+          </form>
+          <hr />
+          <div>
+            <h2>{this.state.searchWords}</h2>
+            <ul>
+              {this.state.display && (
+                <SearchResults
+                  results={this.state.searchResults}
+                  words={this.state.searchWords}
+                />
+              )}
+              {this.state.searchWords !== "" && (
+                <SearchResults
+                  results={this.state.searchResults}
+                  words={this.state.searchWords}
+                />
+              )}
+            </ul>
+          </div>
+        </Suspense>
       </div>
     );
   }

@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import FilmInfo from "../component/FilmInfo/FilmInfo";
+
+import { lazy, Suspense } from "react";
+
+const FilmInfo = lazy(() => import("../component/FilmInfo/FilmInfo"));
+//import FilmInfo from "../component/FilmInfo/FilmInfo";
 
 class MoviePageView extends Component {
   state = {
@@ -31,16 +35,13 @@ class MoviePageView extends Component {
   }
   handleGoBack = (props) => {
     const { state } = this.props.location;
-    if (this.props.location.state !== "") {
+    if (this.props.location.state.query !== undefined) {
       console.log("ZAPROS");
       this.props.history.push({
         pathname: "/movies",
         state: { query: props.location.state.query },
       });
     } else if (state) {
-      this.props.history.push(props.location.state.from);
-      console.log("go back");
-    } else {
       this.props.history.push({
         pathname: "/",
       });
@@ -49,11 +50,13 @@ class MoviePageView extends Component {
   render() {
     return (
       <>
-        <FilmInfo
-          dataFilm={this.state}
-          fn={this.handleGoBack}
-          {...this.props}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <FilmInfo
+            dataFilm={this.state}
+            fn={this.handleGoBack}
+            {...this.props}
+          />
+        </Suspense>
       </>
     );
   }

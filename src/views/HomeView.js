@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-//import Trending from "../component/Trending/Trending";
 import { Link } from "react-router-dom";
 
 class HomeView extends Component {

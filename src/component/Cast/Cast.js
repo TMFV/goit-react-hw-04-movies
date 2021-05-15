@@ -12,10 +12,7 @@ class Cast extends Component {
     const apiKey = "140aa2a61156d040b45d8a45da490f38";
 
     this.setState({ movieId: this.props.match.params.movieId });
-    this.props.history.push({
-      pathname: this.props.location.pathname,
-      search: "",
-    });
+
     const actors = await axios
       .get(
         `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}/credits?api_key=${apiKey}`
