@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/styles/HomeView.module.css"],"names":[],"mappings":"AAAA,2BACE,cAAe,CACf,gBACF","file":"7.c37c98e6.chunk.css","sourcesContent":[".mainTitle {\n  font-size: 24px;\n  margin-left: 25px;\n}\n"]}
