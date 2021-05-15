@@ -1,6 +1,8 @@
 import { Route, Switch } from "react-router";
 import { NavLink } from "react-router-dom";
 import React, { lazy, Suspense } from "react";
+import routes from "./routes";
+import style from "./styles/app.module.css";
 
 const HomeView = lazy(() => import("./views/HomeView"));
 const MoviesView = lazy(() => import("./views/MoviesView"));
@@ -14,32 +16,33 @@ const MoviePageView = lazy(() => import("./views/MoviePageView"));
 
 function App() {
   return (
-    <div className="App">
+    <div className={style.app}>
       <Suspense fallback={<div>Loading...</div>}>
         <nav>
-          <li>
+          <li className={style.navItems}>
             <NavLink
-              to="/"
+              to={routes.home}
               className="navlink"
               activeClassName="navlink--axtive"
             >
               Home
             </NavLink>
           </li>
-          <li>
+          <li className={style.navItems}>
             <NavLink
-              to="/movies"
+              to={routes.movies}
               className="navlink"
-              activeClassName="navlink--axtive"
+              activeClassName="navlink--active"
             >
               Movies
             </NavLink>
           </li>
         </nav>
+        <hr />
         <Switch>
-          <Route exact path="/" component={HomeView} />
-          <Route exact path="/movies" component={MoviesView} />
-          <Route path="/movies/:movieId" render={() => <MoviePageView />} />
+          <Route exact path={routes.home} component={HomeView} />
+          <Route exact path={routes.movies} component={MoviesView} />
+          <Route path={routes.film} render={() => <MoviePageView />} />
           <Route component={NotFoundView} />
         </Switch>
       </Suspense>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import style from "../styles/HomeView.module.css";
 
 class HomeView extends Component {
   state = { trendingMovies: [] };
@@ -16,7 +17,8 @@ class HomeView extends Component {
   render() {
     return (
       <>
-        <h1> Trending today</h1>
+        <h1 className={style.mainTitle}> Trending today</h1>
+        <hr />
         <ul>
           {this.state.trendingMovies.map((movie) => (
             <li key={movie.id}>

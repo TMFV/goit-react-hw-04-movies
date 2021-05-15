@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import { lazy, Suspense } from "react";
+import style from "../styles/MoviesView.module.css";
 
 const SearchResults = lazy(() =>
   import("../component/SearchResults/SearchResults")
@@ -40,7 +41,7 @@ class MoviesView extends Component {
 
     let arr = axios
       .get(
-        `https://api.themoviedb.org/3/search/keyword?api_key=${apiKey}&query=${w}&page=1`
+        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${w}&page=1&include_adult=false`
       )
       .then((response) => {
         if (this.state.searchResults !== response.data.results)
@@ -64,12 +65,12 @@ class MoviesView extends Component {
       <div>
         <Suspense fallback={<div>Loading...</div>}>
           <form onSubmit={this.searchTextToState} type="submit">
-            <input type="text" placeholder="words for searching"></input>
+            <input type="text" placeholder="Search..."></input>
             <button type="submit">Search</button>
           </form>
           <hr />
           <div>
-            <h2>{this.state.searchWords}</h2>
+            <h2 className={style.query}>{this.state.searchWords}</h2>
             <ul>
               {this.state.display && (
                 <SearchResults

@@ -36,7 +36,6 @@ class MoviePageView extends Component {
   handleGoBack = (props) => {
     const { state } = this.props.location;
     if (this.props.location.state.query !== undefined) {
-      console.log("ZAPROS");
       this.props.history.push({
         pathname: "/movies",
         state: { query: props.location.state.query },

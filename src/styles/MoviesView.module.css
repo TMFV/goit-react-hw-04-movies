@@ -1,0 +1,16 @@
+form {
+  margin-left: 35px;
+}
+input {
+  font-size: 18px;
+}
+form > button {
+  margin: auto auto auto 20px;
+}
+form > button:hover {
+  background-color: #ff00ff11;
+  border: #b42828 solid 1px;
+}
+.query {
+  margin-left: 25px;
+}

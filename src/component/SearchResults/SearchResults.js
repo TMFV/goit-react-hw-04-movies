@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class SearchResult extends Component {
   state = {
@@ -15,7 +16,7 @@ class SearchResult extends Component {
     return (
       <div>
         {this.props.results.map((movie) => (
-          <li key={movie.id}>
+          <li key={`${movie.id}${movie.title}`}>
             <Link
               to={{
                 pathname: `movies/${movie.id}`,
@@ -25,7 +26,7 @@ class SearchResult extends Component {
                 },
               }}
             >
-              {movie.name}
+              {movie.title}
             </Link>
           </li>
         ))}
@@ -33,5 +34,12 @@ class SearchResult extends Component {
     );
   }
 }
+SearchResult.propTypes = {
+  results: PropTypes.array,
+  words: PropTypes.string,
+};
+SearchResult.defaultProps = {
+  results: [],
+};
 
 export default withRouter(SearchResult);

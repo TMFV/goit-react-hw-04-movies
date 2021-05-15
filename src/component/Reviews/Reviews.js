@@ -12,10 +12,6 @@ class Reviews extends Component {
     const apiKey = "140aa2a61156d040b45d8a45da490f38";
 
     this.setState({ movieId: this.props.match.params.movieId });
-    this.props.history.push({
-      pathname: this.props.location.pathname,
-      search: "",
-    });
 
     const reviews = await axios
       .get(
@@ -31,7 +27,7 @@ class Reviews extends Component {
   createReviewsList = () => {
     const reviewsArray = this.state.filmReviews;
     return reviewsArray.map((review) => (
-      <li>
+      <li key={review.id}>
         <p>{`Author: ${review.author}`}</p>
         <p>{review.content}</p>
       </li>

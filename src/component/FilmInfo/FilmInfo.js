@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Route } from "react-router";
 import { Link, withRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import PropTypes from "prop-types";
+import style from "../../styles/FilmInfo.module.css";
 
 const MovieDetailsPage = lazy(() => import("../../views/MovieDetailsPage"));
 //import MovieDetailsPage from "../../views/MovieDetailsPage";
@@ -29,14 +31,14 @@ class FilmInfo extends Component {
       <div className="film">
         <Suspense fallback={<div>Loading...</div>}>
           <button onClick={() => this.props.fn(this.props)}>← Go back</button>
-          <div className="film_info">
-            <div className="film_poster">
+          <div className={style.film_info}>
+            <div className={style.film_poster}>
               <img
                 src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${allProps.filmPoster}`}
                 alt="1"
               />
             </div>
-            <div className="film_details">
+            <div className={style.film_details}>
               <h1 className="film_details__title">{allProps.filmTitle}</h1>
               <p className="film_details__info">{`User Score: ${
                 allProps.filmUserScore * 10
@@ -68,7 +70,10 @@ class FilmInfo extends Component {
               <Link
                 to={{
                   pathname: `${this.props.match.url}/reviews`,
-                  state: { query: this.props.location.state.query },
+                  state: {
+                    from: `/movies`,
+                    query: this.props.location.state.query,
+                  },
                 }}
               >
                 <li key="revs102">Reviews</li>
@@ -91,6 +96,13 @@ class FilmInfo extends Component {
     );
   }
 }
+FilmInfo.propTypes = {
+  dataFilm: PropTypes.object,
+  fn: PropTypes.func.isRequired,
+};
+FilmInfo.defaultProps = {
+  dataFilm: {},
+};
 
 export default withRouter(FilmInfo);
 
